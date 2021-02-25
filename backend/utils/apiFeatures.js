@@ -24,13 +24,18 @@ class ApiFeatures {
     const removeFields = ["keyword", "limit", "page"];
     removeFields.forEach((element) => delete queryCopy[element]);
 
-    console.log(queryCopy);
     //Advance filter for price, rating ....
     let querystr = JSON.stringify(queryCopy);
     querystr = querystr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
-    console.log(querystr);
 
     this.query = this.query.find(JSON.parse(querystr));
+    return this;
+  }
+  pagination(resPerPage) {
+    const currentPage = Number(this.querystr.page) || 1;
+    const skip = resPerPage * (currentPage - 1);
+
+    this.query = this.query.limit(resPerPage).skip(skip);
     return this;
   }
 }
