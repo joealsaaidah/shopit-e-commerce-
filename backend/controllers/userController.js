@@ -23,3 +23,30 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
     token,
   });
 });
+
+// Login user   =>  /api/v1/login
+export const loginUser = catchAsyncErrors(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // check if email and pass has been given
+  if (!email || !password) {
+    return next(new errorHandler("Please. enter E-mail & Password", 400));
+  }
+
+  // finding user in Database
+  const user = await User.findOne({ email }).select("+password");
+  if (!user) {
+    return next(new errorHandler("Invaled E-mail or Password", 401));
+  }
+
+  // check if password is correct or not
+  const isPasswordsCorrect = await user.comparePassword(password);
+  if (!isPasswordsCorrect) {
+    return next(new errorHandler("Invaled E-mail or Password", 401));
+  }
+  const token = user.getJwtToken();
+  res.status(200).json({
+    success: true,
+    token,
+  });
+});
