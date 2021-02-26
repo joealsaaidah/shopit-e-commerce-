@@ -15,8 +15,11 @@ export const registerUser = catchAsyncErrors(async (req, res, next) => {
         "https://res.cloudinary.com/mimicucu/image/upload/v1614337914/shopit/avatars/avatar_bcrbxg.jpg",
     },
   });
+
+  const token = user.getJwtToken();
+
   res.status(201).json({
     success: true,
-    user,
+    token,
   });
 });
