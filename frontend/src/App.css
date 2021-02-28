@@ -5,7 +5,11 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  overflow: hidden;
+  /* overflow: hidden; */
+  overflow-x: hidden;
+  box-sizing: border-box !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 nav {
