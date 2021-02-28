@@ -16,7 +16,7 @@ export const newProduct = catchAsyncErrors(async (req, res, next) => {
 
 // fetch all products live in the database    =>   api/v1/products
 export const getProducts = catchAsyncErrors(async (req, res, next) => {
-  const resPerPage = 4;
+  const resPerPage = 8;
   const productsCount = await Product.countDocuments();
 
   const apiFeatures = new ApiFeatures(Product.find(), req.query)
@@ -25,6 +25,7 @@ export const getProducts = catchAsyncErrors(async (req, res, next) => {
     .pagination(resPerPage);
 
   const products = await apiFeatures.query;
+
   res.status(200).json({
     success: true,
     productsCount,
