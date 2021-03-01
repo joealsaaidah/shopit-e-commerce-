@@ -1,26 +1,69 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import MetaData from "./layouts/MetaData";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../actions/productAction";
+import { useAlert } from "react-alert";
 
+import { getProducts } from "../actions/productAction";
 import Product from "./product/Product";
 import Loader from "./layouts/Loader";
 
-import { useAlert } from "react-alert";
+import Pagination from "react-js-pagination";
+import Slider from "rc-slider";
 
-const Home = () => {
+import "rc-slider/assets/index.css";
+
+const Home = ({ match }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, SetPrice] = useState([1, 5000]);
+  const [category, setCategory] = useState("");
+  const [rating, SetRating] = useState(0);
+
+  const categories = [
+    "Electronics",
+    "Cameras",
+    "Laptops",
+    "Accessories",
+    "Handphones",
+    "Food",
+    "Books",
+    "Clothes/Shoes",
+    "Beauty/Health",
+    "Outdoor",
+    "Home",
+  ];
+
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { loading, products, error, productsCount } = useSelector(
-    (state) => state.products
-  );
+  const {
+    loading,
+    products,
+    error,
+    productsCount,
+    resPerPage,
+    filteredProductsCount,
+  } = useSelector((state) => state.products);
+
+  const keyword = match.params.keyword;
+
+  const createSliderWithTooltip = Slider.createSliderWithTooltip;
+  const Range = createSliderWithTooltip(Slider.Range);
+
   useEffect(() => {
     if (error) {
       return alert.error(error);
     }
-    dispatch(getProducts());
-  }, [dispatch, alert, error]);
+    dispatch(getProducts(keyword, currentPage, price, category, rating));
+  }, [dispatch, alert, error, keyword, currentPage, price, category, rating]);
+
+  const setCurrentPageNo = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  let count = productsCount;
+  if (keyword) {
+    count = filteredProductsCount;
+  }
 
   return (
     <Fragment>
@@ -33,12 +76,107 @@ const Home = () => {
 
           <section id='products' className='container mt-5'>
             <div className='row'>
-              {products &&
+              {keyword ? (
+                <Fragment>
+                  <div className='col-6 col-md-3 mt-5 mb-5'>
+                    <div className='px-5'>
+                      <Range
+                        marks={{
+                          1: "$1",
+                          1000: "$1000",
+                        }}
+                        min={1}
+                        max={1000}
+                        defaultValue={[1, 5000]}
+                        tipFormatter={(value) => `$${value}`}
+                        tipProps={{
+                          placement: "top",
+                          visible: true,
+                        }}
+                        value={price}
+                        onChange={(price) => SetPrice(price)}
+                      />
+
+                      <hr className='my-5' />
+
+                      <div className='mt-5'>
+                        <h4 className='mb3'>Categories</h4>
+                        <ul className='pl-0'>
+                          {categories.map((category) => (
+                            <li
+                              style={{ cursor: "pointer", listStyle: "none" }}
+                              key={category}
+                              onClick={() => setCategory(category)}
+                            >
+                              {category}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <hr className='my-3' />
+
+                      <div className='mt-5'>
+                        <h4 className='mb3'>Ratings</h4>
+                        <ul className='pl-0'>
+                          {[5, 4, 3, 2, 1].map((star) => (
+                            <li
+                              style={{ cursor: "pointer", listStyle: "none" }}
+                              key={star}
+                              onClick={() => SetRating(star)}
+                            >
+                              <div className='rating-outer'>
+                                <div
+                                  className='rating-inner'
+                                  style={{ width: `${star * 20}%` }}
+                                ></div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className='col-6 col-md-9'>
+                    <div className='row'>
+                      {products &&
+                        products.map((product) => (
+                          <Product
+                            key={product._id}
+                            product={product}
+                            col={4}
+                          />
+                        ))}
+                    </div>
+                  </div>
+                </Fragment>
+              ) : (
+                products &&
                 products.map((product) => (
-                  <Product key={product._id} product={product} />
-                ))}
+                  <Product key={product._id} product={product} col={3} />
+                ))
+              )}
             </div>
           </section>
+
+          {resPerPage <= count && (
+            <div className=' d-flex justify-content-center mt-5 pagination'>
+              <Pagination
+                activePage={currentPage}
+                itemsCountPerPage={resPerPage}
+                totalItemsCount={productsCount}
+                /* pageRangeDisplayed={5} */
+                onChange={setCurrentPageNo}
+                nextPageText={"Next"}
+                prevPageText={"Prev"}
+                firstPageText={"First"}
+                lastPageText={"Last"}
+                itemClass='page-item'
+                linkClass='page-link'
+              />
+            </div>
+          )}
         </Fragment>
       )}
     </Fragment>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Fragment } from "react";
-//import "../../App.css";
+import Search from "./Search";
+import { Link, Route } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -8,23 +9,13 @@ const Header = () => {
       <nav className='navbar row'>
         <div className='col-12 col-md-3'>
           <div className='navbar-brand'>
-            <img src='/images/logo1.png' alt='Shop-it logo here' />
+            <Link to='/'>
+              <img src='/images/logo1.png' alt='Shop-it logo here' />
+            </Link>
           </div>
         </div>
         <div className='col-12 col-md-6 mt-2 mt-md-0'>
-          <div className='input-group'>
-            <input
-              type='text'
-              id='search_field'
-              className='from-control'
-              placeholder='Enter Product Name...'
-            />
-            <div className='input-group-append'>
-              <button id='search_btn' className='btn'>
-                <i className='fa fa-search' aria-hidden='true'></i>
-              </button>
-            </div>
-          </div>
+          <Route render={({ history }) => <Search history={history} />} />
         </div>
         <div className='col-12 col-md-3 mt-4 mt-md-0 text-center'>
           <button className='btn' id='login_btn'>

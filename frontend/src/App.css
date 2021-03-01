@@ -113,7 +113,7 @@ footer {
   width: 0;
 }
 .rating-inner::before {
-  content: "\f005 \f005 \f005 \f005";
+  content: "\f005 \f005 \f005 \f005 \f005";
   color: #f8ce0b;
 }
 
@@ -476,3 +476,9 @@ ul.CATs a {
   font-size: 0.8rem;
   color: grey;
 }
+
+/* 
+.pagination {
+  justify-content: center;
+}
+ */
