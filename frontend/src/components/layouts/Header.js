@@ -10,7 +10,7 @@ const Header = () => {
         <div className='col-12 col-md-3'>
           <div className='navbar-brand'>
             <Link to='/'>
-              <img src='/images/logo1.png' alt='Shop-it logo here' />
+              <img src='/images/logo1.png' alt='Shop-IT' />
             </Link>
           </div>
         </div>
@@ -18,9 +18,14 @@ const Header = () => {
           <Route render={({ history }) => <Search history={history} />} />
         </div>
         <div className='col-12 col-md-3 mt-4 mt-md-0 text-center'>
-          <button className='btn' id='login_btn'>
+          <Link
+            style={{ color: "black" }}
+            to='/login'
+            className='btn ml-4'
+            id='login_btn'
+          >
             Login
-          </button>
+          </Link>
           <span className='ml-3' id='cart'>
             Cart
           </span>
