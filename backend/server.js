@@ -3,6 +3,7 @@ const dotenv = require("dotenv"); */
 import app from "./app.js";
 import dotenv from "dotenv";
 import connecttoDatabase from "./config/database.js";
+import cloudinary from "cloudinary";
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err) => {
@@ -16,6 +17,13 @@ dotenv.config({ path: "backend/config/config.env" });
 
 // connect to Database
 connecttoDatabase();
+
+// Setup Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const server = app.listen(process.env.PORT, () => {
   console.log(

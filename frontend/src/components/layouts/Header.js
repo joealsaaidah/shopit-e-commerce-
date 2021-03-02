@@ -10,7 +10,12 @@ const Header = () => {
         <div className='col-12 col-md-3'>
           <div className='navbar-brand'>
             <Link to='/'>
-              <img src='/images/logo1.png' alt='Shop-IT' />
+              <img
+                src='/images/logo.png'
+                alt='Shop-IT'
+                width='50px'
+                height='30px'
+              />
             </Link>
           </div>
         </div>

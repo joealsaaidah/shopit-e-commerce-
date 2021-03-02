@@ -12,7 +12,7 @@ const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { isAuthenticated, error, loading, user } = useSelector(
+  const { isAuthenticated, error, loading } = useSelector(
     (state) => state.auth
   );
 
