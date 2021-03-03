@@ -48,23 +48,25 @@ const Header = () => {
             <div className='ml-4 dropdown d-inline'>
               <Link
                 to='#!'
-                className='btn dropdown-toggle text-white'
+                className='btn dropdown-toggle text-white mr-4'
                 type='button'
                 id='dropDownMenuButton'
                 data-toggle='dropdown'
                 aria-haspopup='true'
                 aria-expanded='false'
               >
-                <figure className='avatar avatar-nav'>
-                  <img
-                    width='50px'
-                    height='50px'
-                    src={user.avatar && user.avatar.url}
-                    alt={user && user.name}
-                    className='rounded-circle'
-                  />
-                </figure>
-                <span>{user && user.name}</span>
+                <div className='d-flex justify-content-center align-items-center'>
+                  <figure className='avatar avatar-nav mr-3 my-auto'>
+                    <img
+                      width='30px'
+                      height='30px'
+                      src={user.avatar && user.avatar.url}
+                      alt={user && user.name}
+                      className='rounded-circle'
+                    />
+                  </figure>
+                  <span>{user && user.name}</span>
+                </div>
               </Link>
               <div
                 className='dropdown-menu'
@@ -82,6 +84,7 @@ const Header = () => {
                 <Link to='/me' className='dropdown-item'>
                   Profile
                 </Link>
+                <div class='dropdown-divider'></div>
                 <Link
                   to='/'
                   className='dropdown text-danger'
