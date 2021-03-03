@@ -6,8 +6,15 @@ import Login from "./components/user/Login";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import ProductDetails from "./components/product/ProductDetails";
 import Register from "./components/user/Register";
+import Profile from "./components/user/Profile";
+import { loadUser } from "./actions/userAction";
+import store from "./store";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   return (
     <Router>
       <div className='App'>
@@ -18,6 +25,7 @@ function App() {
           <Route path='/product/:id' component={ProductDetails} exact />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/me' component={Profile} exact />
         </div>
         <Footer />
       </div>
