@@ -281,12 +281,10 @@ footer {
   border: 0;
   letter-spacing: 1px;
   line-height: 30px;
-  padding: 5px 20px 5px 30px;
+  padding: 5px 10px 5px 15px;
   color: grey;
   text-decoration: none;
   cursor: default;
-  padding: 5px 20px 5px 30px;
-  color: grey;
   font-weight: bold;
   float: left;
   height: auto;
@@ -294,13 +292,15 @@ footer {
 .incomplete {
   background: #eeeeee;
 }
+/* here */
 .complete {
   background: #bbbbbb;
 }
-.active {
+.active-step {
   background: #fa9c23;
   color: #fff;
 }
+/* here */
 .triangle-completed {
   float: left;
   width: 0;
@@ -309,7 +309,7 @@ footer {
   border-bottom: 20px solid transparent;
   margin-left: -1px;
 }
-
+/* here */
 .traiangle2-completed {
   width: 0;
   float: left;
@@ -352,13 +352,14 @@ footer {
 }
 
 /*------User Profile-----*/
-.user-info img {
-  border-radius: 5rem;
+.avatar-profile {
+  height: 16rem;
+  width: 16rem;
 }
 .user-info h4 {
   font-weight: 800;
   color: grey;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 .user-info p {
   font-size: 1.1rem;

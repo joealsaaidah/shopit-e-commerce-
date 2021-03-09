@@ -5,7 +5,7 @@ import MetaData from "../layouts/MetaData";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartAction";
 import { Link } from "react-router-dom";
 
-const Cart = () => {
+const Cart = ({ history }) => {
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
 
@@ -25,6 +25,10 @@ const Cart = () => {
 
   const removeItemFromCartHandler = (id) => {
     dispatch(removeItemFromCart(id));
+  };
+
+  const checkoutHandler = () => {
+    history.push("/login?redirect=shipping");
   };
 
   return (
@@ -130,7 +134,11 @@ const Cart = () => {
                   </span>
                 </p>
                 <hr />
-                <button id='checkout_btn' className='btn btn-primary btn-block'>
+                <button
+                  id='checkout_btn'
+                  className='btn btn-primary btn-block'
+                  onClick={checkoutHandler}
+                >
                   Check out
                 </button>
               </div>

@@ -6,7 +6,7 @@ import { login, clearErrors } from "../../actions/userAction";
 import Loader from "../layouts/Loader";
 import MetaData from "../layouts/MetaData";
 
-const Login = ({ history }) => {
+const Login = ({ history, location }) => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -16,10 +16,12 @@ const Login = ({ history }) => {
     (state) => state.auth
   );
 
+  const redirect = location.search ? location.search.split("=")[1] : "/";
+
   useEffect(() => {
     // if user already logged in send to homepage
     if (isAuthenticated) {
-      history.push("/");
+      history.push(redirect);
     }
     if (error) {
       alert.error(error);
