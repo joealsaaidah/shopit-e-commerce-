@@ -13,6 +13,8 @@ import store from "./store";
 import { useEffect } from "react";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
+import ForgotPassword from "./components/user/ForgotPassword";
+import NewPassword from "./components/user/NewPassword";
 
 function App() {
   useEffect(() => {
@@ -35,6 +37,8 @@ function App() {
             component={UpdatePassword}
             exact
           />
+          <Route path='/password/forgot' component={ForgotPassword} exact />
+          <Route path='/password/reset/:token' component={NewPassword} exact />
         </div>
         <Footer />
       </div>
