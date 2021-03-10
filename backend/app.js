@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import orders from "./routes/order.js";
 import bodyParser from "body-parser";
 import fileUpload from "express-fileupload";
+import payment from "./routes/payment.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(fileUpload());
 app.use("/api/v1", products);
 app.use("/api/v1", users);
 app.use("/api/v1", orders);
+app.use("/api/v1", payment);
 
 //middleware to handle Errors
 app.use(errorMeddleware);

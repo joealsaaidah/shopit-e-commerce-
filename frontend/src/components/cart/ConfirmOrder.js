@@ -25,7 +25,7 @@ const ConfirmOrder = ({ history }) => {
       totalPrice,
     };
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
-    history.push("/");
+    history.push("/payment");
   };
 
   return (
@@ -73,7 +73,7 @@ const ConfirmOrder = ({ history }) => {
                   <div className='col-4 col-lg-4 mt-4 mt-lg-0'>
                     <p>
                       {item.quantity} X ${item.price} =
-                      <b> {item.quantity * item.price}</b>
+                      <b> {(item.quantity * item.price).toFixed(2)}</b>
                     </p>
                   </div>
                 </div>
